@@ -32,11 +32,19 @@ def get_data(ticker,api_key):
     url_balance_sheet = f'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={ticker}&apikey={api_key}'
     url_cashflow= f'https://www.alphavantage.co/query?function=CASH_FLOW&symbol={ticker}&apikey={api_key}'
     url_income_statement = f'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol={ticker}&apikey={api_key}'
+    url_earnings = f'https://www.alphavantage.co/query?function=EARNINGS&symbol={ticker}&apikey={api_key}'
 
     data_overview = requests.get(url_overview, verify=False).json()
     data_balance_sheet = requests.get(url_balance_sheet, verify=False).json()
     data_cashflow = requests.get(url_cashflow, verify=False).json()
     data_income_statement = requests.get(url_income_statement, verify=False).json()
+    data_earnings = requests.get(url_earnings).json()
+
+    value_an = data_earnings.pop('annualEarnings')
+    data_earnings['annualReports'] = value_an
+
+    value_qu = data_earnings.pop('quarterlyEarnings')
+    data_earnings['quarterlyReports'] = value_qu
 
     overview = pd.DataFrame(data_overview, index=[0])
 
@@ -48,8 +56,9 @@ def get_data(ticker,api_key):
 
     annual_reports, quarterly_reports = split_reports(data_income_statement)
     income = create_dataframe(annual_reports, quarterly_reports)
+    earnings = create_dataframe(annual_reports, quarterly_reports)
 
-    return overview,balance,cashflow,income
+    return overview,balance,cashflow,income, earnings
 
 
 
