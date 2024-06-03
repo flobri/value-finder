@@ -60,8 +60,24 @@ def process_data(cashflow, income, balance, earnings):
     income_an = select_data(income, 'Annual',keep=keep_income)
     earnings_an = select_data(earnings, 'Annual', keep=['fiscalDateEnding', 'reportedEPS'])
 
-    income_an = pd.merge(income_an, earnings_an, how='inner', on='fiscalDateEnding')
-    income_qu = pd.merge(income_qu, earnings_qu, how='inner', on='fiscalDateEnding')
+    income_an['fiscalDateEnding'] = pd.to_datetime(income_an['fiscalDateEnding'])
+    income_qu['fiscalDateEnding'] = pd.to_datetime(income_qu['fiscalDateEnding'])
+    income_an['Year_Month'] = income_an['fiscalDateEnding'].dt.to_period('M')
+    income_qu['Year_Month'] = income_qu['fiscalDateEnding'].dt.to_period('M')
+    
+    earnings_an['fiscalDateEnding'] = pd.to_datetime(earnings_an['fiscalDateEnding'])
+    earnings_qu['fiscalDateEnding'] = pd.to_datetime(earnings_qu['fiscalDateEnding'])
+    earnings_an['Year_Month'] = earnings_an['fiscalDateEnding'].dt.to_period('M')
+    earnings_qu['Year_Month'] = earnings_qu['fiscalDateEnding'].dt.to_period('M')
+    earnings_an.drop(columns=['fiscalDateEnding'],inplace=True)
+    earnings_qu.drop(columns=['fiscalDateEnding'],inplace=True)
+    
+    income_an = pd.merge(income_an, earnings_an, how='inner', on='Year_Month')
+    income_qu = pd.merge(income_qu, earnings_qu, how='inner', on='Year_Month')
+    
+    income_an.drop(columns=['Year_Month'],inplace=True)
+    income_qu.drop(columns=['Year_Month'],inplace=True)
+
 
     dfs_an = [cashflow_an, income_an, balance_an]
     dfs_qu = [cashflow_qu, income_qu]
