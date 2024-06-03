@@ -198,81 +198,80 @@ def management(gdata,balance_qu):
     grate_roce_3y = roce.iloc[-4:-1].mean()
     grate_roce_5y = roce.iloc[-6:-1].mean()
     grate_roce_8y = roce.iloc[-9:-1].mean()
-    grate_roce_13y = roce.iloc[-15:-1].mean()
+    grate_roce_12y = roce.iloc[-14:-1].mean()
     grate_roce_mean = (grate_roce_1y + grate_roce_3y + grate_roce_5y + grate_roce_8y + grate_roce_13y) / 5
 
     grate_roe_1y = roe.iloc[-2]
     grate_roe_3y = roe.iloc[-4:-1].mean()
     grate_roe_5y = roe.iloc[-6:-1].mean()
     grate_roe_8y = roe.iloc[-9:-1].mean()
-    grate_roe_13y = roe.iloc[-15:-1].mean()
+    grate_roe_12y = roe.iloc[-14:-1].mean()
     grate_roe_mean = (grate_roe_1y + grate_roe_3y + grate_roe_5y + grate_roe_8y + grate_roe_13y) / 5
 
-    grates_roe = [grate_roe_1y, grate_roe_3y, grate_roe_5y, grate_roe_8y, grate_roe_13y, grate_roe_mean]
-    grates_roce = [grate_roce_1y, grate_roce_3y, grate_roce_5y, grate_roce_8y, grate_roce_13y, grate_roce_mean]
+    grates_roe = [grate_roe_1y, grate_roe_3y, grate_roe_5y, grate_roe_8y, grate_roe_12y, grate_roe_mean]
+    grates_roce = [grate_roce_1y, grate_roce_3y, grate_roce_5y, grate_roce_8y, grate_roce_12y, grate_roce_mean]
 
     df = pd.DataFrame(
-        {'MEANS': ['1 Jahr', '3 Jahre', '5 Jahre', '8 Jahre', '13 Jahre', 'mean'], 'ROCE': grates_roce,
+        {'MEANS': ['1 Jahr', '3 Jahre', '5 Jahre', '8 Jahre', '12 Jahre', 'mean'], 'ROCE': grates_roce,
          'ROE': grates_roe, 'LT DEBT/EBIT': verschuldungsgrad})
     return df
 
 
-def wachstum(gdata):
+def wachstum(gdata):    
     eps = gdata['reportedEPS']
 
     grate_eps_1y = ((eps.iloc[-2] / eps.iloc[-3]) - 1) * 100
     grate_eps_3y = ((eps.iloc[-2] / eps.iloc[-5]) ** (1 / 3) - 1) * 100
     grate_eps_5y = ((eps.iloc[-2] / eps.iloc[-7]) ** (1 / 5) - 1) * 100
     grate_eps_8y = ((eps.iloc[-2] / eps.iloc[-10]) ** (1 / 8) - 1) * 100
-    grate_eps_13y = ((eps.iloc[-2] / eps.iloc[-15]) ** (1 / 13) - 1) * 100
-    grate_eps_mean = (grate_eps_1y + grate_eps_3y + grate_eps_5y + grate_eps_8y + grate_eps_13y) / 5
-
+    grate_eps_12y = ((eps.iloc[-2] / eps.iloc[-14]) ** (1 / 13) - 1) * 100
+    grate_eps_mean = (grate_eps_1y + grate_eps_3y + grate_eps_5y + grate_eps_8y + grate_eps_12y) / 5
+    
     bookvalueplusdividend = gdata['bookvalueplusdividend']
     grate_bpd_1y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-3]) - 1) * 100
     grate_bpd_3y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-5]) ** (1 / 3) - 1) * 100
     grate_bpd_5y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-7]) ** (1 / 5) - 1) * 100
     grate_bpd_8y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-10]) ** (1 / 8) - 1) * 100
-    grate_bpd_13y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-15]) ** (1 / 13) - 1) * 100
-    grate_bpd_mean = (grate_bpd_1y + grate_bpd_3y + grate_bpd_5y + grate_bpd_8y + grate_bpd_13y) / 5
-
+    grate_bpd_12y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-14]) ** (1 / 13) - 1) * 100
+    grate_bpd_mean = (grate_bpd_1y + grate_bpd_3y + grate_bpd_5y + grate_bpd_8y + grate_bpd_12y) / 5
+    
     pershareRevenue = gdata['pershareRevenue']
     grate_rev_1y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-3]) - 1) * 100
     grate_rev_3y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-5]) ** (1 / 3) - 1) * 100
     grate_rev_5y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-7]) ** (1 / 5) - 1) * 100
     grate_rev_8y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-10]) ** (1 / 8) - 1) * 100
-    grate_rev_13y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-15]) ** (1 / 13) - 1) * 100
-    grate_rev_mean = (grate_rev_1y + grate_rev_3y + grate_rev_5y + grate_rev_8y + grate_rev_13y) / 5
-
+    grate_rev_12y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-14]) ** (1 / 13) - 1) * 100
+    grate_rev_mean = (grate_rev_1y + grate_rev_3y + grate_rev_5y + grate_rev_8y + grate_rev_12y) / 5
+    
     pershareOperativerCashflow = gdata['pershareOperativerCashflow']
     grate_opc_1y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-3]) - 1) * 100
     grate_opc_3y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-5]) ** (1 / 3) - 1) * 100
     grate_opc_5y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-7]) ** (1 / 5) - 1) * 100
     grate_opc_8y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-10]) ** (1 / 8) - 1) * 100
-    grate_opc_13y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-15]) ** (1 / 13) - 1) * 100
-    grate_opc_mean = (grate_opc_1y + grate_opc_3y + grate_opc_5y + grate_opc_8y + grate_opc_13y) / 5
-
+    grate_opc_12y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-14]) ** (1 / 13) - 1) * 100
+    grate_opc_mean = (grate_opc_1y + grate_opc_3y + grate_opc_5y + grate_opc_8y + grate_opc_12y) / 5
+    
     pershareFreeCashflow = gdata['pershareFreeCashflow']
     grate_ofc_1y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-3]) - 1) * 100
     grate_ofc_3y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-5]) ** (1 / 3) - 1) * 100
     grate_ofc_5y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-7]) ** (1 / 5) - 1) * 100
     grate_ofc_8y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-10]) ** (1 / 8) - 1) * 100
-    grate_ofc_13y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-15]) ** (1 / 13) - 1) * 100
-    grate_ofc_mean = (grate_ofc_1y + grate_ofc_3y + grate_ofc_5y + grate_ofc_8y + grate_ofc_13y) / 5
-
-    grates_eps = [grate_eps_1y, grate_eps_3y, grate_eps_5y, grate_eps_8y, grate_eps_13y, grate_eps_mean]
-    grates_bpd = [grate_bpd_1y, grate_bpd_3y, grate_bpd_5y, grate_bpd_8y, grate_bpd_13y, grate_bpd_mean]
-    grates_rev = [grate_rev_1y, grate_rev_3y, grate_rev_5y, grate_rev_8y, grate_rev_13y, grate_rev_mean]
-    grates_opc = [grate_opc_1y, grate_opc_3y, grate_opc_5y, grate_opc_8y, grate_opc_13y, grate_opc_mean]
-    grates_ofc = [grate_ofc_1y, grate_ofc_3y, grate_ofc_5y, grate_ofc_8y, grate_ofc_13y, grate_ofc_mean]
-
+    grate_ofc_12y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-14]) ** (1 / 13) - 1) * 100
+    grate_ofc_mean = (grate_ofc_1y + grate_ofc_3y + grate_ofc_5y + grate_ofc_8y + grate_ofc_12y) / 5
+    
+    grates_eps = [grate_eps_1y, grate_eps_3y, grate_eps_5y, grate_eps_8y, grate_eps_12y, grate_eps_mean]
+    grates_bpd = [grate_bpd_1y, grate_bpd_3y, grate_bpd_5y, grate_bpd_8y, grate_bpd_12y, grate_bpd_mean]
+    grates_rev = [grate_rev_1y, grate_rev_3y, grate_rev_5y, grate_rev_8y, grate_rev_12y, grate_rev_mean]
+    grates_opc = [grate_opc_1y, grate_opc_3y, grate_opc_5y, grate_opc_8y, grate_opc_12y, grate_opc_mean]
+    grates_ofc = [grate_ofc_1y, grate_ofc_3y, grate_ofc_5y, grate_ofc_8y, grate_ofc_12y, grate_ofc_mean]
+    
     df = pd.DataFrame(
-        {'WACHSTUM PER SHARE': ['1 Jahr', '3 Jahre', '5 Jahre', '8 Jahre', '13 Jahre', 'mean'],
-         'EPS': grates_eps,
-         'BOOK + DIV': grates_bpd,
-         'REVENUE': grates_rev,
-         'OPCASHFOW': grates_opc,
-         'FCASHFLOW': grates_ofc})
-
+        {'WACHSTUM PER SHARE': ['1 Jahr', '3 Jahre', '5 Jahre', '8 Jahre', '12 Jahre', 'mean'],
+          'EPS': grates_eps,
+          'BOOK + DIV': grates_bpd,
+          'REVENUE': grates_rev,
+          'OPCASHFOW': grates_opc,
+          'FCASHFLOW': grates_ofc})
     return df
 
 def bewertung(gdata):
