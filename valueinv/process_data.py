@@ -199,14 +199,14 @@ def management(gdata,balance_qu):
     grate_roce_5y = roce.iloc[-6:-1].mean()
     grate_roce_8y = roce.iloc[-9:-1].mean()
     grate_roce_12y = roce.iloc[-14:-1].mean()
-    grate_roce_mean = (grate_roce_1y + grate_roce_3y + grate_roce_5y + grate_roce_8y + grate_roce_13y) / 5
+    grate_roce_mean = (grate_roce_1y + grate_roce_3y + grate_roce_5y + grate_roce_8y + grate_roce_12y) / 5
 
     grate_roe_1y = roe.iloc[-2]
     grate_roe_3y = roe.iloc[-4:-1].mean()
     grate_roe_5y = roe.iloc[-6:-1].mean()
     grate_roe_8y = roe.iloc[-9:-1].mean()
     grate_roe_12y = roe.iloc[-14:-1].mean()
-    grate_roe_mean = (grate_roe_1y + grate_roe_3y + grate_roe_5y + grate_roe_8y + grate_roe_13y) / 5
+    grate_roe_mean = (grate_roe_1y + grate_roe_3y + grate_roe_5y + grate_roe_8y + grate_roe_12y) / 5
 
     grates_roe = [grate_roe_1y, grate_roe_3y, grate_roe_5y, grate_roe_8y, grate_roe_12y, grate_roe_mean]
     grates_roce = [grate_roce_1y, grate_roce_3y, grate_roce_5y, grate_roce_8y, grate_roce_12y, grate_roce_mean]
