@@ -14,14 +14,14 @@ API_KEY = 'R8RUI8U2LWPPPXOG'
 ticker = 'AAPL'
 
 # Laden der Daten
-csv_files = ['overview.csv', 'balance.csv', 'cashflow.csv', 'income.csv', 'earnings.csv', 'data_an.csv', 'data_qu.csv']
-overview = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\overview.csv')
-balance = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\balance.csv')
-cashflow = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\cashflow.csv')
-income = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\income.csv')
-earnings = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\earnings.csv')
-data_an = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_an.csv')
-data_qu = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_qu.csv')
+# csv_files = ['overview.csv', 'balance.csv', 'cashflow.csv', 'income.csv', 'earnings.csv', 'data_an.csv', 'data_qu.csv']
+# overview = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\overview.csv')
+# balance = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\balance.csv')
+# cashflow = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\cashflow.csv')
+# income = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\income.csv')
+# earnings = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\earnings.csv')
+# data_an = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_an.csv')
+# data_qu = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_qu.csv')
 # for key, dataframe in dataframes.items():
 #     globals()[key] = dataframe
 
