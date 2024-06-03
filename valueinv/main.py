@@ -53,9 +53,9 @@ with st.container():
             bewertung = bewertung(gdata)
             overview_df = overview_df(overview,balance_qu)
             qualitaet_df = qualitaet(overview,gdata)
-             with col2:
-                 description = overview['Description'].iloc[0]
-                 st.write(description)
+            with col2:
+                description = overview['Description'].iloc[0]
+                st.write(description)
 
         else:
             st.write("Enter a US-Stock Ticker.")
