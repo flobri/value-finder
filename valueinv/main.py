@@ -59,7 +59,7 @@ with st.container():
     if ticker:            
         tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
         with tab0:
-            left_col, mid_col, right_col = st.columns((2, 4, 2))
+            left_col, mid_col, right_col = st.columns((0.9,2,1.5))
             with left_col:
                 st.subheader("Overview")
                 sty_overview = style_overview(overview_df)
