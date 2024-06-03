@@ -40,8 +40,8 @@ earnings['reportedEPS'] = pd.to_numeric(earnings['reportedEPS'])
 all_reports_an, all_reports_qu, balance_qu = process_data(cashflow, income, balance, earnings)
 
 # Verbinde jährliche Daten mit TTM Daten aus quaterly reported data
-all_reports_an = caculate_avg_price_by_year(all_reports_an, data_an=data_an)
-ttm = create_ttm_dataframe(all_reports_qu, balance_qu, data_qu=data_qu)
+all_reports_an = caculate_avg_price_by_year(all_reports_an, ticker)
+ttm = create_ttm_dataframe(all_reports_qu, balance_qu, ticker)
 all_reports = pd.concat([all_reports_an, ttm]).reset_index(drop=True)
 
 # Berechne alle relevanten Kennzahlen und generiere finalen Dataframe
