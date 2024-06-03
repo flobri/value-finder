@@ -1,6 +1,8 @@
 import pandas as pd
 import yfinance as yf
 import numpy as np
+import appdirs as ad
+ad.user_cache_dir = lambda *args: "/tmp"
 
 
 def convert_to_numeric(df, exception_columns):
