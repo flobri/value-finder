@@ -23,35 +23,38 @@ with st.container():
     col1, col2 = st.columns((1, 2))
     with col1:
         ticker = st.text_input('', placeholder='Tickersymbol')
-        # Laden der Daten
-        overview,balance,cashflow,income, earnings = get_data(ticker,API_KEY)
-
-
-        # Aufbereiten der Daten
-        # Convert to numeric
-        exception_columns = ['fiscalDateEnding', 'reportedCurrency', 'ReportType']
-        income = convert_to_numeric(income, exception_columns)
-        balance = convert_to_numeric(balance, exception_columns)
-        cashflow = convert_to_numeric(cashflow, exception_columns)
-        earnings['reportedEPS'] = pd.to_numeric(earnings['reportedEPS'])
-        
-        # Fasse historische Daten aus Api zu einem dataframe je Reporttype zusammen
-        all_reports_an, all_reports_qu, balance_qu = process_data(cashflow, income, balance, earnings)
-        
-        # Verbinde jährliche Daten mit TTM Daten aus quaterly reported data
-        all_reports_an,data_an = caculate_avg_price_by_year(all_reports_an, ticker)
-        ttm,data_qu = create_ttm_dataframe(all_reports_qu, balance_qu, ticker)
-        all_reports = pd.concat([all_reports_an, ttm]).reset_index(drop=True)
-        
-        # Berechne alle relevanten Kennzahlen und generiere finalen Dataframe
-        all_reports = calculate_metrics(all_reports)
-        fundamentals = create_fundamentals(all_reports)
-        gdata = fundamentals.T
-        management = management(gdata,balance_qu)
-        wachstum = wachstum(gdata)
-        bewertung = bewertung(gdata)
-        overview_df = overview_df(overview,balance_qu)
-        qualitaet_df = qualitaet(overview,gdata)
+        if ticker:
+            # Laden der Daten
+            overview,balance,cashflow,income, earnings = get_data(ticker,API_KEY)
+    
+    
+            # Aufbereiten der Daten
+            # Convert to numeric
+            exception_columns = ['fiscalDateEnding', 'reportedCurrency', 'ReportType']
+            income = convert_to_numeric(income, exception_columns)
+            balance = convert_to_numeric(balance, exception_columns)
+            cashflow = convert_to_numeric(cashflow, exception_columns)
+            earnings['reportedEPS'] = pd.to_numeric(earnings['reportedEPS'])
+            
+            # Fasse historische Daten aus Api zu einem dataframe je Reporttype zusammen
+            all_reports_an, all_reports_qu, balance_qu = process_data(cashflow, income, balance, earnings)
+            
+            # Verbinde jährliche Daten mit TTM Daten aus quaterly reported data
+            all_reports_an,data_an = caculate_avg_price_by_year(all_reports_an, ticker)
+            ttm,data_qu = create_ttm_dataframe(all_reports_qu, balance_qu, ticker)
+            all_reports = pd.concat([all_reports_an, ttm]).reset_index(drop=True)
+            
+            # Berechne alle relevanten Kennzahlen und generiere finalen Dataframe
+            all_reports = calculate_metrics(all_reports)
+            fundamentals = create_fundamentals(all_reports)
+            gdata = fundamentals.T
+            management = management(gdata,balance_qu)
+            wachstum = wachstum(gdata)
+            bewertung = bewertung(gdata)
+            overview_df = overview_df(overview,balance_qu)
+            qualitaet_df = qualitaet(overview,gdata)
+        else:
+            st.write("Enter a Stock Ticker.")
 
     
     with col2:
