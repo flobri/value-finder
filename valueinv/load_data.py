@@ -56,6 +56,8 @@ def get_data(ticker,api_key):
 
     annual_reports, quarterly_reports = split_reports(data_income_statement)
     income = create_dataframe(annual_reports, quarterly_reports)
+
+    annual_reports,quarterly_reports = split_reports(data_earnings)
     earnings = create_dataframe(annual_reports, quarterly_reports)
 
     return overview,balance,cashflow,income, earnings
