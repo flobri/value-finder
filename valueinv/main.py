@@ -77,25 +77,25 @@ with st.container():
                 st.write(html, unsafe_allow_html=True)
     
             with mid_col:
-                # st.markdown("""
-                #     <style>
-                #     .reportview-container .main .block-container{
-                #         max-width: 100%;
-                #         padding-top: 2rem;
-                #         padding-right: 2rem;
-                #         padding-left: 2rem;
-                #         padding-bottom: 2rem;
-                #     }
-                #     @media (max-width: 768px) {
-                #         .reportview-container .main .block-container{
-                #             padding-top: 1rem;
-                #             padding-right: 1rem;
-                #             padding-left: 1rem;
-                #             padding-bottom: 1rem;
-                #         }
-                #     }
-                #     </style>
-                # """, unsafe_allow_html=True)
+                st.markdown("""
+                    <style>
+                    .reportview-container .main .block-container{
+                        max-width: 100%;
+                        padding-top: 2rem;
+                        padding-right: 2rem;
+                        padding-left: 2rem;
+                        padding-bottom: 2rem;
+                    }
+                    @media (max-width: 768px) {
+                        .reportview-container .main .block-container{
+                            padding-top: 1rem;
+                            padding-right: 1rem;
+                            padding-left: 1rem;
+                            padding-bottom: 1rem;
+                        }
+                    }
+                    </style>
+                """, unsafe_allow_html=True)
     
                 plot_data = gdata.copy()
                 current_year = datetime.datetime.now().year
