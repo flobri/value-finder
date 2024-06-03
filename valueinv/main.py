@@ -20,7 +20,7 @@ st.markdown(hide_style,unsafe_allow_html=True)
 st.title('Value Finder')
         
 with st.container():
-    col1, col2 = st.columns((1, 2))
+    col1, col2 = st.columns((1, 3))
     with col1:
         ticker = st.text_input('', placeholder='Tickersymbol')
         if ticker:
@@ -59,7 +59,7 @@ with st.container():
             with st.container():
                 tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
                 with tab0:
-                    left_col, mid_col, right_col = st.columns((0.9, 2, 1.5))
+                    left_col, mid_col, right_col = st.columns((1, 2, 1))
                     with left_col:
                         with st.container():
                             st.subheader("Overview")
