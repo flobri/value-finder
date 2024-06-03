@@ -13,47 +13,6 @@ from load_data import get_data,split_reports, create_dataframe
 API_KEY = st.secrets["api_key"]
 # ticker = 'AAPL'
 
-# Laden der Daten
-# csv_files = ['overview.csv', 'balance.csv', 'cashflow.csv', 'income.csv', 'earnings.csv', 'data_an.csv', 'data_qu.csv']
-# overview = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\overview.csv')
-# balance = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\balance.csv')
-# cashflow = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\cashflow.csv')
-# income = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\income.csv')
-# earnings = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\earnings.csv')
-# data_an = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_an.csv')
-# data_qu = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_qu.csv')
-# for key, dataframe in dataframes.items():
-#     globals()[key] = dataframe
-
-overview,balance,cashflow,income, earnings = get_data(ticker,API_KEY)
-
-
-# Aufbereiten der Daten
-# Convert to numeric
-exception_columns = ['fiscalDateEnding', 'reportedCurrency', 'ReportType']
-income = convert_to_numeric(income, exception_columns)
-balance = convert_to_numeric(balance, exception_columns)
-cashflow = convert_to_numeric(cashflow, exception_columns)
-earnings['reportedEPS'] = pd.to_numeric(earnings['reportedEPS'])
-
-# Fasse historische Daten aus Api zu einem dataframe je Reporttype zusammen
-all_reports_an, all_reports_qu, balance_qu = process_data(cashflow, income, balance, earnings)
-
-# Verbinde jährliche Daten mit TTM Daten aus quaterly reported data
-all_reports_an,data_an = caculate_avg_price_by_year(all_reports_an, ticker)
-ttm,data_qu = create_ttm_dataframe(all_reports_qu, balance_qu, ticker)
-all_reports = pd.concat([all_reports_an, ttm]).reset_index(drop=True)
-
-# Berechne alle relevanten Kennzahlen und generiere finalen Dataframe
-all_reports = calculate_metrics(all_reports)
-fundamentals = create_fundamentals(all_reports)
-gdata = fundamentals.T
-management = management(gdata,balance_qu)
-wachstum = wachstum(gdata)
-bewertung = bewertung(gdata)
-overview_df = overview_df(overview,balance_qu)
-qualitaet_df = qualitaet(overview,gdata)
-
 
 # Dashboard
 st.set_page_config(page_title="Value Finder", page_icon=":chart:", layout='wide')
@@ -64,9 +23,46 @@ with st.container():
     col1, col2 = st.columns((1, 2))
     with col1:
         ticker = st.text_input('', placeholder='Tickersymbol')
+        # Laden der Daten
+        overview,balance,cashflow,income, earnings = get_data(ticker,API_KEY)
+
+
+        # Aufbereiten der Daten
+        # Convert to numeric
+        exception_columns = ['fiscalDateEnding', 'reportedCurrency', 'ReportType']
+        income = convert_to_numeric(income, exception_columns)
+        balance = convert_to_numeric(balance, exception_columns)
+        cashflow = convert_to_numeric(cashflow, exception_columns)
+        earnings['reportedEPS'] = pd.to_numeric(earnings['reportedEPS'])
+        
+        # Fasse historische Daten aus Api zu einem dataframe je Reporttype zusammen
+        all_reports_an, all_reports_qu, balance_qu = process_data(cashflow, income, balance, earnings)
+        
+        # Verbinde jährliche Daten mit TTM Daten aus quaterly reported data
+        all_reports_an,data_an = caculate_avg_price_by_year(all_reports_an, ticker)
+        ttm,data_qu = create_ttm_dataframe(all_reports_qu, balance_qu, ticker)
+        all_reports = pd.concat([all_reports_an, ttm]).reset_index(drop=True)
+        
+        # Berechne alle relevanten Kennzahlen und generiere finalen Dataframe
+        all_reports = calculate_metrics(all_reports)
+        fundamentals = create_fundamentals(all_reports)
+        gdata = fundamentals.T
+        management = management(gdata,balance_qu)
+        wachstum = wachstum(gdata)
+        bewertung = bewertung(gdata)
+        overview_df = overview_df(overview,balance_qu)
+        qualitaet_df = qualitaet(overview,gdata)
+
+    
     with col2:
         description = overview['Description'].iloc[0]
         st.write(description)
+
+
+
+
+
+
 
 with st.container():
     tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
