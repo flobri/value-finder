@@ -11,7 +11,7 @@ from style import style_management, hide_style, set_table_styles, apply_funda, s
 from load_data import get_data,split_reports, create_dataframe
 
 API_KEY = st.secrets["api_key"]
-ticker = 'AAPL'
+# ticker = 'AAPL'
 
 # Laden der Daten
 # csv_files = ['overview.csv', 'balance.csv', 'cashflow.csv', 'income.csv', 'earnings.csv', 'data_an.csv', 'data_qu.csv']
@@ -63,7 +63,7 @@ st.title('Value Finder')
 with st.container():
     col1, col2 = st.columns((1, 2))
     with col1:
-        st.text_input('', placeholder='Tickersymbol')
+        ticker = st.text_input('', placeholder='Tickersymbol')
     with col2:
         description = overview['Description'].iloc[0]
         st.write(description)
