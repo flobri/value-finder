@@ -73,11 +73,11 @@ def process_data(cashflow, income, balance, earnings):
     return all_reports_an, all_reports_qu, balance_qu
 
 
-def caculate_avg_price_by_year(all_reports_an, data_an):
+def caculate_avg_price_by_year(all_reports_an):
     # Laden der Daten aus yF
     min_date_an = all_reports_an['fiscalDateEnding'].min()
     max_date = pd.Timestamp.today().strftime('%Y-%m-%d')
-    # data_an = yf.download(ticker, start=min_date_an, end=max_date).reset_index()
+    data_an = yf.download(ticker, start=min_date_an, end=max_date).reset_index()
     data_an['Date'] = pd.to_datetime(data_an['Date'])
     data_an['year'] = data_an['Date'].dt.year
 
@@ -95,12 +95,12 @@ def caculate_avg_price_by_year(all_reports_an, data_an):
     return all_reports_an
 
 
-def create_ttm_dataframe(all_reports_qu, balance_qu, data_qu):
+def create_ttm_dataframe(all_reports_qu, balance_qu):
     # Laden der Daten aus yF
     all_reports_qu = all_reports_qu.iloc[:4]
     min_date_qu = all_reports_qu['fiscalDateEnding'].min()
     max_date = pd.Timestamp.today().strftime('%Y-%m-%d')
-    # data_qu = yf.download(ticker, start=min_date_qu, end=max_date)
+    data_qu = yf.download(ticker, start=min_date_qu, end=max_date)
 
     # Berechnung avg_price
     average_close_by_ttm = data_qu.Close.mean()
