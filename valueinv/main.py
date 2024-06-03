@@ -8,6 +8,7 @@ from process_data import convert_to_numeric, process_data, calculate_metrics, ca
     create_fundamentals, create_ttm_dataframe, management, wachstum, overview_df, qualitaet, bewertung
 from style import style_management, hide_style, set_table_styles, apply_funda, style_wachstum, style_overview, \
     style_qualitaet, style_bewertung
+from load_data import get_data,split_reports, create_dataframe
 
 API_KEY = 'R8RUI8U2LWPPPXOG'
 ticker = 'AAPL'
@@ -23,6 +24,9 @@ data_an = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_an.csv')
 data_qu = pd.read_csv(r'C:\Users\xv20361\PycharmProjects\valueinv\data_qu.csv')
 # for key, dataframe in dataframes.items():
 #     globals()[key] = dataframe
+
+overview,balance,cashflow,income = get_data(ticker,API_KEY)
+
 
 # Aufbereiten der Daten
 # Convert to numeric
