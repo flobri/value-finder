@@ -10,7 +10,7 @@ from style import style_management, hide_style, set_table_styles, apply_funda, s
     style_qualitaet, style_bewertung
 from load_data import get_data,split_reports, create_dataframe
 
-API_KEY = 'R8RUI8U2LWPPPXOG'
+API_KEY = 'BB7GQ9R01PRIJMUI'
 ticker = 'AAPL'
 
 # Laden der Daten
