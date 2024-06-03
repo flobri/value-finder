@@ -56,7 +56,7 @@ with st.container():
                 description = overview['Description'].iloc[0]
                 st.write(description)
                 
-        tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
+            tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
             with tab0:
                 left_col, mid_col, right_col = st.columns((1, 2, 1))
                 with left_col:
