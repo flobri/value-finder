@@ -94,7 +94,7 @@ def caculate_avg_price_by_year(all_reports_an,ticker):
     all_reports_an = pd.merge(all_reports_an, average_close_by_year, how='inner', on='year')
     all_reports_an.drop(columns=['fiscalDateEnding'], inplace=True)
     all_reports_an['year'] = all_reports_an['year'].astype(int)
-    return all_reports_an
+    return all_reports_an,data_an
 
 
 def create_ttm_dataframe(all_reports_qu, balance_qu,ticker):
@@ -114,7 +114,7 @@ def create_ttm_dataframe(all_reports_qu, balance_qu,ticker):
     balance_ttm = balance_qu[balance_qu['fiscalDateEnding'] == balance_qu['fiscalDateEnding'].max()].drop(
         columns=['ReportType', 'fiscalDateEnding'])
     ttm = pd.concat([ttm, balance_ttm], axis=1)
-    return ttm
+    return ttm,data_qu
 
 
 def calculate_metrics(all_reports):
