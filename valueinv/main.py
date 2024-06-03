@@ -25,7 +25,7 @@ ticker = 'AAPL'
 # for key, dataframe in dataframes.items():
 #     globals()[key] = dataframe
 
-overview,balance,cashflow,income = get_data(ticker,API_KEY)
+overview,balance,cashflow,income, earnings = get_data(ticker,API_KEY)
 
 
 # Aufbereiten der Daten
