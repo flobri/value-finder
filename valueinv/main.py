@@ -58,7 +58,7 @@ with st.container():
                 
             tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
             with tab0:
-                left_col, mid_col, right_col = st.columns((1, 2, 1))
+                left_col, mid_col, right_col = st.columns((2, 4, 2))
                 with left_col:
                     st.subheader("Overview")
                     sty_overview = style_overview(overview_df)
