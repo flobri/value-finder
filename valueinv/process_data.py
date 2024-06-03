@@ -73,7 +73,7 @@ def process_data(cashflow, income, balance, earnings):
     return all_reports_an, all_reports_qu, balance_qu
 
 
-def caculate_avg_price_by_year(all_reports_an):
+def caculate_avg_price_by_year(all_reports_an,ticker):
     # Laden der Daten aus yF
     min_date_an = all_reports_an['fiscalDateEnding'].min()
     max_date = pd.Timestamp.today().strftime('%Y-%m-%d')
@@ -95,7 +95,7 @@ def caculate_avg_price_by_year(all_reports_an):
     return all_reports_an
 
 
-def create_ttm_dataframe(all_reports_qu, balance_qu):
+def create_ttm_dataframe(all_reports_qu, balance_qu,ticker):
     # Laden der Daten aus yF
     all_reports_qu = all_reports_qu.iloc[:4]
     min_date_qu = all_reports_qu['fiscalDateEnding'].min()
