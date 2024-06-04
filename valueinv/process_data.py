@@ -342,10 +342,10 @@ def overview_df(overview,balance_qu):
             df.loc[idx, 0] = pd.to_numeric(df.loc[idx, 0])
             df.loc[idx, 0] = "$ {:,.0f} Mio".format(row[0])
         elif idx == 'YIELD':
-        df.loc[idx, 0] = pd.to_numeric(df.loc[idx, 0], errors='coerce')
-        if pd.notna(df.loc[idx,0]):
-            df.loc[idx,0] = df.loc[idx,0] * 100
-            df.loc[idx, 0] = "{:,.2f} %".format(row[0])
+            df.loc[idx, 0] = pd.to_numeric(df.loc[idx, 0], errors='coerce')
+            if pd.notna(df.loc[idx,0]):
+                df.loc[idx,0] = df.loc[idx,0] * 100
+                df.loc[idx, 0] = "{:,.2f} %".format(row[0])
 
     return df
 
