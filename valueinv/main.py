@@ -24,7 +24,7 @@ st.title('Value Finder')
 with st.container():
     col1, col2 = st.columns((1, 3))
     with col1:
-        ticker = st.input_text('', placeholder='Tickersymbol',dic_ticker).upper()
+        ticker = st.selectbox('', placeholder='Tickersymbol',dic_ticker).upper()
         if ticker:
             # Laden der Daten
             overview, balance, cashflow, income, earnings = get_data(ticker, API_KEY)
