@@ -11,7 +11,9 @@ from style import style_management, hide_style, set_table_styles, apply_funda, s
 from load_data import get_data,split_reports, create_dataframe
 
 API_KEY = st.secrets["api_key"]
-# ticker = 'AAPL'
+
+with open('dic_ticker.json','r') as fp:
+  dic_ticker = json.load(fp)
 
 
 # Dashboard
