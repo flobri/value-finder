@@ -252,7 +252,6 @@ def wachstum(gdata):
         'FCASHFLOW': 'pershareFreeCashflow'
     }
 
-
   for metric_name,column_name in metrics.items():
     growth_rates = []
     for period in valid_periods:
@@ -261,65 +260,9 @@ def wachstum(gdata):
     mean_growth_rate = sum(growth_rates) / len(growth_rates) if any(growth_rates) else None
     growth_rates.append(mean_growth_rate)
     growth_data[metric_name] = growth_rates
-
-
+      
   return  pd.DataFrame(growth_data)
-# def wachstum(gdata):    
-#     eps = gdata['reportedEPS']
 
-#     grate_eps_1y = ((eps.iloc[-2] / eps.iloc[-3]) - 1) * 100
-#     grate_eps_3y = ((eps.iloc[-2] / eps.iloc[-5]) ** (1 / 3) - 1) * 100
-#     grate_eps_5y = ((eps.iloc[-2] / eps.iloc[-7]) ** (1 / 5) - 1) * 100
-#     grate_eps_8y = ((eps.iloc[-2] / eps.iloc[-10]) ** (1 / 8) - 1) * 100
-#     grate_eps_12y = ((eps.iloc[-2] / eps.iloc[-14]) ** (1 / 13) - 1) * 100
-#     grate_eps_mean = (grate_eps_1y + grate_eps_3y + grate_eps_5y + grate_eps_8y + grate_eps_12y) / 5
-    
-#     bookvalueplusdividend = gdata['bookvalueplusdividend']
-#     grate_bpd_1y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-3]) - 1) * 100
-#     grate_bpd_3y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-5]) ** (1 / 3) - 1) * 100
-#     grate_bpd_5y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-7]) ** (1 / 5) - 1) * 100
-#     grate_bpd_8y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-10]) ** (1 / 8) - 1) * 100
-#     grate_bpd_12y = ((bookvalueplusdividend.iloc[-2] / bookvalueplusdividend.iloc[-14]) ** (1 / 13) - 1) * 100
-#     grate_bpd_mean = (grate_bpd_1y + grate_bpd_3y + grate_bpd_5y + grate_bpd_8y + grate_bpd_12y) / 5
-    
-#     pershareRevenue = gdata['pershareRevenue']
-#     grate_rev_1y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-3]) - 1) * 100
-#     grate_rev_3y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-5]) ** (1 / 3) - 1) * 100
-#     grate_rev_5y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-7]) ** (1 / 5) - 1) * 100
-#     grate_rev_8y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-10]) ** (1 / 8) - 1) * 100
-#     grate_rev_12y = ((pershareRevenue.iloc[-2] / pershareRevenue.iloc[-14]) ** (1 / 13) - 1) * 100
-#     grate_rev_mean = (grate_rev_1y + grate_rev_3y + grate_rev_5y + grate_rev_8y + grate_rev_12y) / 5
-    
-#     pershareOperativerCashflow = gdata['pershareOperativerCashflow']
-#     grate_opc_1y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-3]) - 1) * 100
-#     grate_opc_3y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-5]) ** (1 / 3) - 1) * 100
-#     grate_opc_5y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-7]) ** (1 / 5) - 1) * 100
-#     grate_opc_8y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-10]) ** (1 / 8) - 1) * 100
-#     grate_opc_12y = ((pershareOperativerCashflow.iloc[-2] / pershareOperativerCashflow.iloc[-14]) ** (1 / 13) - 1) * 100
-#     grate_opc_mean = (grate_opc_1y + grate_opc_3y + grate_opc_5y + grate_opc_8y + grate_opc_12y) / 5
-    
-#     pershareFreeCashflow = gdata['pershareFreeCashflow']
-#     grate_ofc_1y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-3]) - 1) * 100
-#     grate_ofc_3y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-5]) ** (1 / 3) - 1) * 100
-#     grate_ofc_5y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-7]) ** (1 / 5) - 1) * 100
-#     grate_ofc_8y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-10]) ** (1 / 8) - 1) * 100
-#     grate_ofc_12y = ((pershareFreeCashflow.iloc[-2] / pershareFreeCashflow.iloc[-14]) ** (1 / 13) - 1) * 100
-#     grate_ofc_mean = (grate_ofc_1y + grate_ofc_3y + grate_ofc_5y + grate_ofc_8y + grate_ofc_12y) / 5
-    
-#     grates_eps = [grate_eps_1y, grate_eps_3y, grate_eps_5y, grate_eps_8y, grate_eps_12y, grate_eps_mean]
-#     grates_bpd = [grate_bpd_1y, grate_bpd_3y, grate_bpd_5y, grate_bpd_8y, grate_bpd_12y, grate_bpd_mean]
-#     grates_rev = [grate_rev_1y, grate_rev_3y, grate_rev_5y, grate_rev_8y, grate_rev_12y, grate_rev_mean]
-#     grates_opc = [grate_opc_1y, grate_opc_3y, grate_opc_5y, grate_opc_8y, grate_opc_12y, grate_opc_mean]
-#     grates_ofc = [grate_ofc_1y, grate_ofc_3y, grate_ofc_5y, grate_ofc_8y, grate_ofc_12y, grate_ofc_mean]
-    
-#     df = pd.DataFrame(
-#         {'WACHSTUM PER SHARE': ['1 Jahr', '3 Jahre', '5 Jahre', '8 Jahre', '12 Jahre', 'mean'],
-#           'EPS': grates_eps,
-#           'BOOK + DIV': grates_bpd,
-#           'REVENUE': grates_rev,
-#           'OPCASHFOW': grates_opc,
-#           'FCASHFLOW': grates_ofc})
-#     return df
 
 def bewertung(gdata):
     kgv = gdata['KGV']
@@ -399,8 +342,10 @@ def overview_df(overview,balance_qu):
             df.loc[idx, 0] = pd.to_numeric(df.loc[idx, 0])
             df.loc[idx, 0] = "$ {:,.0f} Mio".format(row[0])
         elif idx == 'YIELD':
-            df.loc[idx, 0] = pd.to_numeric(df.loc[idx, 0]) * 100
-            df.loc[idx, 0] = "{:,.2f} %".format(row[0])
+            df.loc[idx, 0] = pd.to_numeric(df.loc[idx, 0])
+            if pd.notna(df.loc[idx,0]):
+                df.loc[idx,0] = df.loc[idx,0] * 100
+                df.loc[idx, 0] = "{:,.2f} %".format(row[0])
 
     return df
 
