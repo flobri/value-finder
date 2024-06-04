@@ -192,33 +192,38 @@ def calculate_growth_rate(series,period):
     return None
 
 def management(gdata,balance_qu):
-    # gdata = gdata.drop('value_list', axis=0)
+  available_years = len(gdata) - 2
+  periods = [1,3,5,8,13]
+  valid_periods = [period for period in periods if period < available_years]
 
-    roce = gdata['ROCE']
-    roe = gdata['ROE']
-    verschuldungsgrad = round((balance_qu['longTermDebtNoncurrent'].iloc[0] / gdata['ebit']).iloc[-1], 2)
+  # Add maximum period die möglich ist, wenn 13 Jahre nicht möglich
+  if len(valid_periods) < len(periods):
+    valid_periods.append(available_years)
 
-    grate_roce_1y = roce.iloc[-2]
-    grate_roce_3y = roce.iloc[-4:-1].mean()
-    grate_roce_5y = roce.iloc[-6:-1].mean()
-    grate_roce_8y = roce.iloc[-9:-1].mean()
-    grate_roce_12y = roce.iloc[-14:-1].mean()
-    grate_roce_mean = (grate_roce_1y + grate_roce_3y + grate_roce_5y + grate_roce_8y + grate_roce_12y) / 5
 
-    grate_roe_1y = roe.iloc[-2]
-    grate_roe_3y = roe.iloc[-4:-1].mean()
-    grate_roe_5y = roe.iloc[-6:-1].mean()
-    grate_roe_8y = roe.iloc[-9:-1].mean()
-    grate_roe_12y = roe.iloc[-14:-1].mean()
-    grate_roe_mean = (grate_roe_1y + grate_roe_3y + grate_roe_5y + grate_roe_8y + grate_roe_12y) / 5
 
-    grates_roe = [grate_roe_1y, grate_roe_3y, grate_roe_5y, grate_roe_8y, grate_roe_12y, grate_roe_mean]
-    grates_roce = [grate_roce_1y, grate_roce_3y, grate_roce_5y, grate_roce_8y, grate_roce_12y, grate_roce_mean]
+  growth_data = {'MEANS': [f"{period} Jahr(e)" for period in valid_periods] + ['mean']
+  }
 
-    df = pd.DataFrame(
-        {'MEANS': ['1 Jahr', '3 Jahre', '5 Jahre', '8 Jahre', '12 Jahre', 'mean'], 'ROCE': grates_roce,
-         'ROE': grates_roe, 'LT DEBT/EBIT': verschuldungsgrad})
-    return df
+  metrics = {
+        'ROCE': 'ROCE',
+        'ROE': 'ROE'
+    }
+
+  verschuldungsgrad = round((balance_qu['longTermDebtNoncurrent'].iloc[0] / gdata['ebit']).iloc[-1], 2)
+
+  for metric_name,column_name in metrics.items():
+    growth_rates = []
+    for period in valid_periods:
+      growth_rate = calculate_growth_rate(gdata[column_name],period)
+      growth_rates.append(growth_rate)
+    mean_growth_rate = sum(growth_rates) / len(growth_rates) if any(growth_rates) else None
+    growth_rates.append(mean_growth_rate)
+    growth_data[metric_name] = growth_rates
+  
+  growth_data['LT DEBT/EBIT'] = verschuldungsgrad
+
+  return  pd.DataFrame(growth_data)
 
 def wachstum(gdata):
   available_years = len(gdata) - 2
