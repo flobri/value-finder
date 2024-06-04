@@ -63,6 +63,8 @@ with st.container():
             try:
                 description = overview['Description'].iloc[0]
                 st.write(description)
+            except Exception as e:
+                st.warning("Keine Daten vorhanden")
     if ticker:
         try:
             tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
