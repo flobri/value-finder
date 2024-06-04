@@ -255,6 +255,9 @@ with st.container():
             with tab2:
                 pass
 
+            except Exception as e:
+                st.warning("Keine Daten vorhanden")
+
 
 
 
