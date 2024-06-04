@@ -191,6 +191,14 @@ def calculate_growth_rate(series,period):
   else:
     return None
 
+def calculate_mean(series,period):
+  if period < len(series)-1:
+    return series.iloc[-(period+1):-1].mean()
+  else:
+    return None
+
+# ggdata = gdata.iloc[9:]
+
 def management(gdata,balance_qu):
   available_years = len(gdata) - 2
   periods = [1,3,5,8,13]
@@ -202,28 +210,27 @@ def management(gdata,balance_qu):
 
 
 
-  growth_data = {'MEANS': [f"{period} Jahr(e)" for period in valid_periods] + ['mean']
+  management_data = {'MEANS': [f"{period} Jahr(e)" for period in valid_periods] + ['mean']
   }
 
   metrics = {
-        'ROCE': 'ROCE',
-        'ROE': 'ROE'
+      'ROE': 'ROE',
+      'ROCE': 'ROCE'
     }
 
   verschuldungsgrad = round((balance_qu['longTermDebtNoncurrent'].iloc[0] / gdata['ebit']).iloc[-1], 2)
 
   for metric_name,column_name in metrics.items():
-    growth_rates = []
+    means = []
     for period in valid_periods:
-      growth_rate = calculate_growth_rate(gdata[column_name],period)
-      growth_rates.append(growth_rate)
-    mean_growth_rate = sum(growth_rates) / len(growth_rates) if any(growth_rates) else None
-    growth_rates.append(mean_growth_rate)
-    growth_data[metric_name] = growth_rates
-  
-  growth_data['LT DEBT/EBIT'] = verschuldungsgrad
+      mean = calculate_mean(gdata[column_name],period)
+      means.append(mean)
+    mean_mean = sum(means) / len(means) if any(means) else None
+    means.append(mean_mean)
+    management_data[metric_name] = means
 
-  return  pd.DataFrame(growth_data)
+  management_data['LT DEBT/EBIT'] = verschuldungsgrad
+  return  pd.DataFrame(management_data)
 
 def wachstum(gdata):
   available_years = len(gdata) - 2
