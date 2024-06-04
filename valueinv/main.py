@@ -22,7 +22,7 @@ st.title('Value Finder')
 with st.container():
     col1, col2 = st.columns((1, 3))
     with col1:
-        ticker = st.text_input('', placeholder='Tickersymbol')
+        ticker = st.text_input('', placeholder='Tickersymbol').upper()
         if ticker:
             # Laden der Daten
             overview, balance, cashflow, income, earnings = get_data(ticker, API_KEY)
