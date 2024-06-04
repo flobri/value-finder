@@ -66,6 +66,7 @@ with st.container():
             except Exception as e:
                 st.warning("Keine Daten vorhanden")
     if ticker:
+        
         try:
             tab0, tab1, tab2 = st.tabs(["Übersicht", "Historical Data", "Graphs"])
             with tab0:
@@ -255,8 +256,8 @@ with st.container():
             with tab2:
                 pass
 
-            except Exception as e:
-                st.warning("Keine Daten vorhanden")
+        except Exception as e:
+            st.warning("Keine Daten vorhanden")
 
 
 
