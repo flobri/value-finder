@@ -80,7 +80,6 @@ with st.container():
                     st.write(html, unsafe_allow_html=True)
     
                     st.subheader("Qualität")
-                    # print(qualitaet_df)
                     sty_qualitaet = style_qualitaet(qualitaet_df)
                     sty_qualitaet = set_table_styles(sty_qualitaet)
                     html = sty_qualitaet.to_html(Index=False)
