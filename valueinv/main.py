@@ -64,9 +64,10 @@ with st.container():
                 description = overview['Description'].iloc[0]
                 name = overview['Name']
                 sec_url = f"https://www.sec.gov/cgi-bin/browse-edgar?company={name}&match=starts-with&filenum=&State=&Country=&SIC=&myowner=exclude&action=getcompany"
+
                 
                 st.write(description)
-                st.write(sec_url)
+                st.write("SEC Filings [link](sec_url)")
 
             
             except Exception as e:
