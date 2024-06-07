@@ -62,11 +62,13 @@ with st.container():
         if ticker:
             try:
                 description = overview['Description'].iloc[0]
-                name = overview['Name']
+                name = overview['Name'].replace(' ', '+')
                 sec_url = f"https://www.sec.gov/cgi-bin/browse-edgar?company={name}&match=starts-with&filenum=&State=&Country=&SIC=&myowner=exclude&action=getcompany"
 
                 
                 st.write(description)
+                if st.buttom("SEC Filings"):
+                    st.markdown(['SEC Filings"(sec_url)')
                 st.link_button("SEC Filings", "sec_url")
 
             
