@@ -67,9 +67,7 @@ with st.container():
 
                 
                 st.write(description)
-                if st.buttom("SEC Filings"):
-                    st.markdown(['SEC Filings"(sec_url)')
-                st.link_button("SEC Filings", "sec_url")
+                st.write(f"""<div style="width:100%;text-align:center;"><a href="{sec_url}" style="float:center">SEC Filings</a></div>""", unsafe_allow_html=True)
 
             
             except Exception as e:
