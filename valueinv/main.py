@@ -62,7 +62,13 @@ with st.container():
         if ticker:
             try:
                 description = overview['Description'].iloc[0]
+                name = overview['name']
+                sec_url = f"https://www.sec.gov/cgi-bin/browse-edgar?company={name}&match=starts-with&filenum=&State=&Country=&SIC=&myowner=exclude&action=getcompany"
+                
                 st.write(description)
+                st.write(sec_url)
+
+            
             except Exception as e:
                 st.warning("Keine Daten vorhanden")
     if ticker:
