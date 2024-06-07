@@ -62,7 +62,7 @@ with st.container():
         if ticker:
             try:
                 description = overview['Description'].iloc[0]
-                name = overview['name']
+                name = overview['Name']
                 sec_url = f"https://www.sec.gov/cgi-bin/browse-edgar?company={name}&match=starts-with&filenum=&State=&Country=&SIC=&myowner=exclude&action=getcompany"
                 
                 st.write(description)
