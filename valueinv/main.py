@@ -67,7 +67,7 @@ with st.container():
 
                 
                 st.write(description)
-                st.write("[link](sec_url)")
+                st.link_button("SEC Filings", "sec_url")
 
             
             except Exception as e:
