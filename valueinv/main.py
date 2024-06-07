@@ -62,7 +62,7 @@ with st.container():
         if ticker:
             try:
                 description = overview['Description'].iloc[0]
-                name = overview['Name'].replace(' ', '+')
+                name = overview['Name'].to_list().replace(' ', '+')
                 sec_url = f"https://www.sec.gov/cgi-bin/browse-edgar?company={name}&match=starts-with&filenum=&State=&Country=&SIC=&myowner=exclude&action=getcompany"
 
                 
