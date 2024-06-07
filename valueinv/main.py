@@ -67,7 +67,7 @@ with st.container():
 
                 
                 st.write(description)
-                st.write(f"""<div style="width:100%;text-align:center;"><a href="{sec_url}" style="float:center">SEC Filings</a></div>""", unsafe_allow_html=True)
+                st.write(f"""<div style="width:100%;"><a href="{sec_url}" style="float:center">SEC Filings</a></div>""", unsafe_allow_html=True)
 
             
             except Exception as e:
