@@ -269,8 +269,7 @@ with st.container():
                 fig4.add_trace(go.Scatter(x=plot.index ,y=plot['freeCashflow'], mode='lines+markers', name='Free Cashflow'))
                 
                 fig4.update_layout(
-                    title= "Financial Performance",
-                    xaxis_title = "Year",
+                    title= "Financial Performance",                    
                     yaxis_title = "Amount in Million",
                     legend_title = 'Metrics',
                     # template = 'plotly_dark'
@@ -279,7 +278,7 @@ with st.container():
                         ticktext=plot.index
                     )
                 )
-                st.plotly_chart(fig4, use_container_width=True)
+                st.write(fig4)
 
         except Exception as e:
             st.warning("Keine Daten vorhanden")
