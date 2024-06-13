@@ -269,10 +269,12 @@ with st.container():
                 with col10:
                     fig4, ax = plt.subplots(figsize=(10, 6))
                     ax.plot(plot.index, plot['totalRevenue'], marker='o', label='Revenue')
+                    ax.plot(plot.index, plot['operatingCashflow'], marker='o', label='Operating Cashflow')
                     ax.plot(plot.index, plot['netIncome'], marker='o', label='Net Profit')
                     ax.plot(plot.index, plot['freeCashflow'], marker='o', label='Free Cashflow')
-                
+                    
                     ax.text(plot.index[-1], plot['freeCashflow'][-1], f"{int(plot['freeCashflow'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['operatingCashflow'][-1], f"{int(plot['operatingCashflow'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
                     ax.text(plot.index[-1], plot['netIncome'][-1], f"{int(plot['netIncome'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
                     ax.text(plot.index[-1], plot['totalRevenue'][-1], f"{int(plot['totalRevenue'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
                 
