@@ -349,7 +349,7 @@ with st.container():
                     ax.text(len(plot.index)/2,management['LT DEBT/EBIT'].iloc[-1],f"{float(management['LT DEBT/EBIT'].iloc[-1])}", ha='center', va='bottom', fontsize=12, color='blue')
                     
                     for i in range(len(plot)):
-                      ax.text(plot.index[i], plot['equityleverage'][i], f" {float(plot['equityleverage'][i])}", ha='center', va='bottom', fontsize=9,color='blue')
+                      ax.text(plot.index[i], plot['equityleverage'][i], f" {float(plot['equityleverage'][i])}", ha='center', va='bottom', fontsize=9,color='black')
                     
                     ax.set_title('Verschuldungsgrad')
                     ax.legend()
