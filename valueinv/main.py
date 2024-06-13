@@ -341,7 +341,7 @@ with st.container():
                     ax.set_xticks(plot.index)
                     st.pyplot(fig6)       
                     
-                    fig8, ax = plt.subplots(figsize=(10, 6))
+                    fig9, ax = plt.subplots(figsize=(10, 6))
                     ax.plot(plot.index, plot['equityleverage'], marker='o', label='LT-Debt/Equity')
                     ax.axhline(y = 1, color = 'red', linestyle='--', linewidth=2)
                     
