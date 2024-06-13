@@ -339,8 +339,20 @@ with st.container():
                     ax.legend()
                     ax.grid(True)
                     ax.set_xticks(plot.index)
-                    st.pyplot(fig6)                
-
+                    st.pyplot(fig6)       
+                    
+                    fig9, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['equityleverage'], marker='o', label='Verschulungsgrad')
+                    ax.axhline(y = 1, color = 'red', linestyle='--', linewidth=2)
+                    
+                    for i in range(len(plot)):
+                      ax.text(plot.index[i], plot['equityleverage'][i], f" {float(plot['equityleverage'][i])}", ha='center', va='bottom', fontsize=9,color='blue')
+                    
+                    ax.set_title('Verschuldungsgrad LT Debt / Equity')
+                    ax.legend()
+                    ax.grid(True)
+                    ax.set_xticks(plot.index)
+                    st.pyplot(fig9)
                 
         except Exception as e:
             st.warning("Keine Daten vorhanden")
