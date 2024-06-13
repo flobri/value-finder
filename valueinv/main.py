@@ -115,29 +115,29 @@ with st.container():
                     """, unsafe_allow_html=True)
         
                     plot_data = gdata.copy()
-                    current_year = datetime.datetime.now().year
-                    gdata.index = gdata.index.to_series().replace('TTM', current_year)
-    
+                    plot_data.index = plot_data.index.astype(str)
+                    
                     price = go.Scatter(x=data_an['Date'], y=data_an['Adj Close'], mode='lines', name='Price',
-                                       yaxis='y2')
+                                        yaxis='y2')
                     cashflow_bar = go.Bar(x=plot_data.index, y=plot_data['pershareFreeCashflow'],
                                           name='FreeCashflow je Share', yaxis='y1')
                     netIncome_bar = go.Bar(x=plot_data.index, y=plot_data['reportedEPS'],
-                                           name='NetIncome je Share',
-                                           yaxis='y1')
+                                            name='NetIncome je Share',
+                                            yaxis='y1')
                     revenue_bar = go.Bar(x=plot_data.index, y=plot_data['pershareRevenue'],
-                                         name='Revenue je Share',
-                                         yaxis='y1')
-    
+                                          name='Revenue je Share',
+                                          yaxis='y1')
+                    
                     layout = go.Layout(
                         title='FreeCashflow vs. Price',
                         xaxis=dict(title='', tickfont=dict(size=16)),
-                        yaxis=dict(title='Price', title_font=dict(size=16)),
-                        yaxis2=dict(title='FCF & EPS', side='right', overlaying='y', title_font=dict(size=16)),
+                        yaxis=dict(title='FCF & EPS', title_font=dict(size=16)),
+                        yaxis2=dict(title='Price', side='right', overlaying='y', title_font=dict(size=16)),
                         legend=dict(x=0.00, y=1.18, orientation='h', font=dict(size=16))
                     )
-    
+                    
                     fig0 = go.Figure(data=[price, netIncome_bar, cashflow_bar, revenue_bar], layout=layout)
+                    
                     st.plotly_chart(fig0, use_container_width=True)
     
     
