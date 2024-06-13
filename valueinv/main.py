@@ -261,8 +261,7 @@ with st.container():
                     st.write(styled_fundamentals.to_html(), unsafe_allow_html=True)
         
             with tab2:
-
-                
+                plot = gdata.copy()              
 
 
                 fig4, ax = plt.subplots(figsize=(10, 6))
