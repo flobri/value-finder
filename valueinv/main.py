@@ -304,8 +304,18 @@ with st.container():
                     st.pyplot(fig5)
                     
                 with col12:
-                    pass
-                
+                    fig6, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['ebitMargin'], marker='o', label='Ebit-Marge')
+                    ax.plot(plot.index, plot['netProfitMargin'], marker='o', label='Netto-Marge')
+                    
+                    ax.text(plot.index[-1], plot['ebitMargin'][-1], f" {float(plot['ROE'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['netProfitMargin'][-1], f" {float(plot['ROA'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+                    
+                    ax.set_title('Gewinnmargen')
+                    ax.legend()
+                    ax.grid(True)
+                    ax.set_xticks(plot.index)
+                    st.pyplot(fig6)                
 
                 
         except Exception as e:
