@@ -261,7 +261,8 @@ with st.container():
                     st.write(styled_fundamentals.to_html(), unsafe_allow_html=True)
         
             with tab2:
-                plot = gdata.copy()              
+                plot = gdata.copy() 
+                plot.index = plot.index.astype(str)
 
 
                 fig4, ax = plt.subplots(figsize=(10, 6))
