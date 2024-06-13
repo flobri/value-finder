@@ -273,10 +273,10 @@ with st.container():
                     ax.plot(plot.index, plot['netIncome'], marker='o', label='Net Profit')
                     ax.plot(plot.index, plot['freeCashflow'], marker='o', label='Free Cashflow')
                     
-                    ax.text(plot.index[-1], plot['freeCashflow'][-1], f"{int(plot['freeCashflow'][-1])}", ha='left', va='center', fontsize=9,color='blue')
-                    ax.text(plot.index[-1], plot['operatingCashflow'][-1], f"{int(plot['operatingCashflow'][-1])}", ha='left', va='center', fontsize=9,color='blue')
-                    ax.text(plot.index[-1], plot['netIncome'][-1], f"{int(plot['netIncome'][-1])}", ha='left', va='center', fontsize=9,color='blue')
-                    ax.text(plot.index[-1], plot['totalRevenue'][-1], f"{int(plot['totalRevenue'][-1])}", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['freeCashflow'][-1], f" {int(plot['freeCashflow'][-1])}", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['operatingCashflow'][-1], f" {int(plot['operatingCashflow'][-1])}", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['netIncome'][-1], f" {int(plot['netIncome'][-1])}", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['totalRevenue'][-1], f" {int(plot['totalRevenue'][-1])}", ha='left', va='center', fontsize=9,color='blue')
                 
                     ax.set_title('Financial Performance')
                     ax.set_ylabel('Amount in Millions')
@@ -287,7 +287,22 @@ with st.container():
                     st.pyplot(fig4)
                
                 with col11:
-                    pass
+                    fig5, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['ROE'], marker='o', label='Eigenkapitalrendite')
+                    ax.plot(plot.index, plot['ROA'], marker='o', label='Gesamtkapitalrendite')
+                    ax.plot(plot.index, plot['ROCE'], marker='o', label='ROCE')
+                    
+                    
+                    ax.text(plot.index[-1], plot['ROE'][-1], f" {float(plot['ROE'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['ROA'][-1], f" {float(plot['ROA'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['ROCE'][-1], f" {float(plot['ROCE'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+
+                    ax.set_title('Kapitalrenditen')
+                    ax.legend()
+                    ax.grid(True)
+                    ax.set_xticks(plot.index)
+                    st.pyplot(fig5)
+                    
                 with col12:
                     pass
                 
