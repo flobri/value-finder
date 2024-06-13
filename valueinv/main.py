@@ -265,21 +265,30 @@ with st.container():
                 plot.index = plot.index.astype(str)
 
 
-                fig4, ax = plt.subplots(figsize=(10, 6))
-                ax.plot(plot.index, plot['totalRevenue'], marker='o', label='Revenue')
-                ax.plot(plot.index, plot['netIncome'], marker='o', label='Net Profit')
-                ax.plot(plot.index, plot['freeCashflow'], marker='o', label='Free Cashflow')
+                col10,col11,col12 = st.columns(3)
+                with col10:
+                    fig4, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['totalRevenue'], marker='o', label='Revenue')
+                    ax.plot(plot.index, plot['netIncome'], marker='o', label='Net Profit')
+                    ax.plot(plot.index, plot['freeCashflow'], marker='o', label='Free Cashflow')
                 
-                ax.text(plot.index[-1], plot['freeCashflow'][-1], f"{int(plot['freeCashflow'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
-                ax.text(plot.index[-1], plot['netIncome'][-1], f"{int(plot['netIncome'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
-                ax.text(plot.index[-1], plot['totalRevenue'][-1], f"{int(plot['totalRevenue'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['freeCashflow'][-1], f"{int(plot['freeCashflow'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['netIncome'][-1], f"{int(plot['netIncome'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['totalRevenue'][-1], f"{int(plot['totalRevenue'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
                 
-                ax.set_title('Financial Performance')
-                ax.set_ylabel('Amount in Millions')
-                ax.legend()
-                ax.grid(True)
-                ax.set_xticks(plot.index)
-                st.pyplot(fig4)
+                    ax.set_title('Financial Performance')
+                    ax.set_ylabel('Amount in Millions')
+                    ax.legend()
+                    ax.grid(True)
+                    ax.set_xticks(plot.index)
+                
+                    st.pyplot(fig4)
+               
+                with col11:
+                    pass
+                with col12:
+                    pass
+                
 
                 
         except Exception as e:
