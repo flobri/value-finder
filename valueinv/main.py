@@ -281,8 +281,8 @@ with st.container():
                 st.pyplot(fig4)
 
                 
-        except Exception as e:
-            st.warning("Keine Daten vorhanden")
+        # except Exception as e:
+        #     st.warning("Keine Daten vorhanden")
 
 
 
