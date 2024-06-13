@@ -296,7 +296,7 @@ with st.container():
                     ax.legend()
                     ax.grid(True)
                     ax.set_xticks(plot.index)
-                    st.pyplot(fig4)
+                    st.pyplot(fig7)
                
                 with col11:
                     fig5, ax = plt.subplots(figsize=(10, 6))
@@ -314,6 +314,18 @@ with st.container():
                     ax.grid(True)
                     ax.set_xticks(plot.index)
                     st.pyplot(fig5)
+
+                    fig8, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['shares_dil'], marker='o', label='dil. Shares Outstanding')
+                    
+                    for i in range(len(plot)):
+                      ax.text(plot.index[i], plot['shares_dil'][i], f" {int(plot['shares_dil'][i])}", ha='center', va='bottom', fontsize=9,color='blue')
+                    
+                    ax.set_title('Shares')
+                    ax.legend()
+                    ax.grid(True)
+                    ax.set_xticks(plot.index)
+                    st.pyplot(fig8)     
                     
                 with col12:
                     fig6, ax = plt.subplots(figsize=(10, 6))
