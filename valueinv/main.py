@@ -285,6 +285,18 @@ with st.container():
                     ax.set_xticks(plot.index)
                 
                     st.pyplot(fig4)
+
+                    fig7, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['equityRatio'], marker='o', label='Eigenkapitalquote')
+                    
+                    for i in range(len(plot)):
+                      ax.text(plot.index[i], plot['equityRatio'][i], f" {float(plot['equityRatio'][i])} %", ha='center', va='bottom', fontsize=9,color='blue')
+                    
+                    ax.set_title('Eingenkapitalentwicklung')
+                    ax.legend()
+                    ax.grid(True)
+                    ax.set_xticks(plot.index)
+                    st.pyplot(fig4)
                
                 with col11:
                     fig5, ax = plt.subplots(figsize=(10, 6))
