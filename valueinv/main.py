@@ -279,7 +279,7 @@ with st.container():
                         ticktext=plot.year
                     )
                 )
-                st.write(fig4)
+                st.plotly_chart(fig4)
 
         except Exception as e:
             st.warning("Keine Daten vorhanden")
