@@ -261,26 +261,26 @@ with st.container():
         
             with tab2:
 
-                fig4 = go.Figure()
-                plot = gdata.copy()
-                plot.index = plot.index.astype(str)
-                plot.reset_index(inplace=True)
-                fig4.add_trace(go.Scatter(x=plot.year ,y=plot['totalRevenue'], mode='lines+markers', name='Revenue'))
-                fig4.add_trace(go.Scatter(x=plot.year ,y=plot['netIncome'], mode='lines+markers', name='Net Profit'))
-                fig4.add_trace(go.Scatter(x=plot.year ,y=plot['freeCashflow'], mode='lines+markers', name='Free Cashflow'))
-                
-                fig4.update_layout(
-                    title= "Financial Performance",                    
-                    yaxis_title = "Amount in Million",
-                    legend_title = 'Metrics',
-                    # template = 'plotly_dark'
-                    xaxis=dict(
-                        tickvals=plot.year,
-                        ticktext=plot.year
-                    )
-                )
-                st.plotly_chart(fig4)
+                import matplotlib.pyplot as plt
 
+
+                fig4, ax = plt.subplots(figsize=(10, 6))
+                ax.plot(plot.index, plot['totalRevenue'], marker='o', label='Revenue')
+                ax.plot(plot.index, plot['netIncome'], marker='o', label='Net Profit')
+                ax.plot(plot.index, plot['freeCashflow'], marker='o', label='Free Cashflow')
+                
+                ax.text(plot.index[-1], plot['freeCashflow'][-1], f"{int(plot['freeCashflow'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                ax.text(plot.index[-1], plot['netIncome'][-1], f"{int(plot['netIncome'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                ax.text(plot.index[-1], plot['totalRevenue'][-1], f"{int(plot['totalRevenue'][-1])}", ha='left', va='bottom', fontsize=9,color='blue')
+                
+                ax.set_title('Financial Performance')
+                ax.set_ylabel('Amount in Millions')
+                ax.legend()
+                ax.grid(True)
+                ax.set_xticks(plot.index)
+                st.pyplot(fig4)
+
+                
         except Exception as e:
             st.warning("Keine Daten vorhanden")
 
