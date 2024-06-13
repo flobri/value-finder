@@ -308,8 +308,8 @@ with st.container():
                     ax.plot(plot.index, plot['ebitMargin'], marker='o', label='Ebit-Marge')
                     ax.plot(plot.index, plot['netProfitMargin'], marker='o', label='Netto-Marge')
                     
-                    ax.text(plot.index[-1], plot['ebitMargin'][-1], f" {float(plot['ROE'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
-                    ax.text(plot.index[-1], plot['netProfitMargin'][-1], f" {float(plot['ROA'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['ebitMargin'][-1], f" {float(plot['ebitMargin'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
+                    ax.text(plot.index[-1], plot['netProfitMargin'][-1], f" {float(plot['netProfitMargin'][-1])} %", ha='left', va='center', fontsize=9,color='blue')
                     
                     ax.set_title('Gewinnmargen')
                     ax.legend()
