@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import plotly.graph_objs as go
 import streamlit as st
+import matplotlib.pyplot as plt
 
 from process_data import convert_to_numeric, process_data, calculate_metrics, caculate_avg_price_by_year, \
     create_fundamentals, create_ttm_dataframe, management, wachstum, overview_df, qualitaet, bewertung
@@ -261,7 +262,7 @@ with st.container():
         
             with tab2:
 
-                import matplotlib.pyplot as plt
+                
 
 
                 fig4, ax = plt.subplots(figsize=(10, 6))
@@ -281,8 +282,8 @@ with st.container():
                 st.pyplot(fig4)
 
                 
-        # except Exception as e:
-        #     st.warning("Keine Daten vorhanden")
+        except Exception as e:
+            st.warning("Keine Daten vorhanden")
 
 
 
