@@ -260,7 +260,25 @@ with st.container():
                     st.write(styled_fundamentals.to_html(), unsafe_allow_html=True)
         
             with tab2:
-                pass
+                fig4 = go.Figure()
+                gdata.index = gdata.index.astype(str)
+                
+                fig4.add_trace(go.Scatter(x=gdata.index ,y=gdata['totalRevenue'], mode='lines+markers', name='Revenue'))
+                fig4.add_trace(go.Scatter(x=gdata.index ,y=gdata['netIncome'], mode='lines+markers', name='Net Profit'))
+                fig4.add_trace(go.Scatter(x=gdata.index ,y=gdata['freeCashflow'], mode='lines+markers', name='Free Cashflow'))
+                
+                fig4.update_layout(
+                    title= "Financial Performance",
+                    xaxis_title = "Year",
+                    yaxis_title = "Amount in Million",
+                    legend_title = 'Metrics',
+                    # template = 'plotly_dark'
+                    xaxis=dict(
+                        tickvals=gdata.index,
+                        ticktext=gdata.index
+                    )
+                )
+                st.plotly_chart(fig4, use_container_width=True)
 
         except Exception as e:
             st.warning("Keine Daten vorhanden")
