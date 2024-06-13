@@ -260,13 +260,14 @@ with st.container():
                     st.write(styled_fundamentals.to_html(), unsafe_allow_html=True)
         
             with tab2:
+
                 fig4 = go.Figure()
                 plot = gdata.copy()
                 plot.index = plot.index.astype(str)
-                
-                fig4.add_trace(go.Scatter(x=plot.index ,y=plot['totalRevenue'], mode='lines+markers', name='Revenue'))
-                fig4.add_trace(go.Scatter(x=plot.index ,y=plot['netIncome'], mode='lines+markers', name='Net Profit'))
-                fig4.add_trace(go.Scatter(x=plot.index ,y=plot['freeCashflow'], mode='lines+markers', name='Free Cashflow'))
+                plot.reset_index(inplace=True)
+                fig4.add_trace(go.Scatter(x=plot.year ,y=plot['totalRevenue'], mode='lines+markers', name='Revenue'))
+                fig4.add_trace(go.Scatter(x=plot.year ,y=plot['netIncome'], mode='lines+markers', name='Net Profit'))
+                fig4.add_trace(go.Scatter(x=plot.year ,y=plot['freeCashflow'], mode='lines+markers', name='Free Cashflow'))
                 
                 fig4.update_layout(
                     title= "Financial Performance",                    
@@ -274,8 +275,8 @@ with st.container():
                     legend_title = 'Metrics',
                     # template = 'plotly_dark'
                     xaxis=dict(
-                        tickvals=plot.index,
-                        ticktext=plot.index
+                        tickvals=plot.year,
+                        ticktext=plot.year
                     )
                 )
                 st.write(fig4)
