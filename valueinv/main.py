@@ -341,14 +341,17 @@ with st.container():
                     ax.set_xticks(plot.index)
                     st.pyplot(fig6)       
                     
-                    fig9, ax = plt.subplots(figsize=(10, 6))
-                    ax.plot(plot.index, plot['equityleverage'], marker='o', label='Verschulungsgrad')
+                    fig8, ax = plt.subplots(figsize=(10, 6))
+                    ax.plot(plot.index, plot['equityleverage'], marker='o', label='LT-Debt/Equity')
                     ax.axhline(y = 1, color = 'red', linestyle='--', linewidth=2)
+                    
+                    ax.axhline(y=management['LT DEBT/EBIT'].iloc[-1], color = 'organe', linestyle='-', linewidth=2, label='LT-Debt/EBIT')
+                    ax.text(len(plot.index)/2,management['LT DEBT/EBIT'].iloc[-1],f"{float(management['LT DEBT/EBIT'].iloc[-1])}", ha='center', va='bottom', fontsize=12, color='blue')
                     
                     for i in range(len(plot)):
                       ax.text(plot.index[i], plot['equityleverage'][i], f" {float(plot['equityleverage'][i])}", ha='center', va='bottom', fontsize=9,color='blue')
                     
-                    ax.set_title('Verschuldungsgrad LT Debt / Equity')
+                    ax.set_title('Verschuldungsgrad')
                     ax.legend()
                     ax.grid(True)
                     ax.set_xticks(plot.index)
