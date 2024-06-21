@@ -173,7 +173,7 @@ with st.container():
                     kpi = st.radio("", options=kpis, horizontal=True, index=kpis.index('KGV'))
                     if kpi == 'KGV':
                       avg_kgv_plot_7y = kgv.iloc[-8:].mean()
-
+                    
                       avg_kgv_plot_5y = kgv.iloc[-6:].mean()
                       avg_kgv_plot_3y = kgv.iloc[-4:].mean()
                     
@@ -188,7 +188,7 @@ with st.container():
                       ax.set_xticks(dates)
                       ax.set_xticklabels(labes) 
                       ax.set_ylabel('KGV')
-                                       
+                                  
                       ax.axhline(y=avg_kgv_plot_3y, color='red',linestyle='--', label='3y_mean')
                       ax.axhline(y=avg_kgv_plot_5y, color='blue',linestyle='--', label='5y_mean')
                       ax.axhline(y=avg_kgv_plot_7y, color='green',linestyle='--', label='7y_mean')
