@@ -145,7 +145,7 @@ with st.container():
                     ax2= ax1.twinx()
                     line, = ax2.plot(data_an['Date'],data_an['Adj Close'], color='blue',linestyle='-', linewidth=2,label='Price')
                     ax2.set_ylabel('Price')
-                    plt.grid(True)
+                    
                     
                     # x Achse beschriften
                     dates = plot['date'].tolist()
