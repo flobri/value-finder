@@ -162,84 +162,84 @@ with st.container():
                     plt.grid(True)
                     
                     st.pyplot(fig0)
-    
-    
-                    kpis = ['KGV', 'KBV', 'KUV']
+                    
                     value = gdata.copy().reset_index(inplace=True)
                     value = gdata[['year','KGV','KUV','KBV']]
                     kgv = value['KGV']
                     kbv = value['KBV']
                     kuv = value['KUV']
+    
+    
+                    kpis = ['KGV', 'KBV', 'KUV']
                     kpi = st.radio("", options=kpis, horizontal=True, index=kpis.index('KGV'))
                     if kpi == 'KGV':
-                      avg_kgv_plot_7y = kgv.iloc[-8:].mean()
-                    
-                      avg_kgv_plot_5y = kgv.iloc[-6:].mean()
-                      avg_kgv_plot_3y = kgv.iloc[-4:].mean()
-                    
-                      next_year = datetime.now().date().year +1
-                      value['date'] = pd.to_datetime(value['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
-                    
-                      fig1,ax = plt.subplots(figsize=(10,6))
-                      ax.plot(value['date'],value['KGV'], marker='o',label=col)
-                    
-                      dates = value['date'].tolist()
-                      labes = [str(year) if year != 'TTM' else 'TTM' for year in value['year']]
-                      ax.set_xticks(dates)
-                      ax.set_xticklabels(labes) 
-                      ax.set_ylabel('KGV')
-                                  
-                      ax.axhline(y=avg_kgv_plot_3y, color='red',linestyle='--', label='3y_mean')
-                      ax.axhline(y=avg_kgv_plot_5y, color='blue',linestyle='--', label='5y_mean')
-                      ax.axhline(y=avg_kgv_plot_7y, color='green',linestyle='--', label='7y_mean')
-                    
-                      ax.grid(True)
-                      ax.legend()  
-                      st.pyplot(fig1)
-                    # if kpi == 'KBV':
-                    #     avg_kbv_plot_7y = kbv.iloc[-8:].mean()
-                    #     avg_kbv_plot_5y = kbv.iloc[-6:].mean()
-                    #     avg_kbv_plot_3y = kbv.iloc[-4:].mean()
+                          avg_kgv_plot_7y = kgv.iloc[-8:].mean()                    
+                          avg_kgv_plot_5y = kgv.iloc[-6:].mean()
+                          avg_kgv_plot_3y = kgv.iloc[-4:].mean()
+                        
+                          next_year = datetime.now().date().year +1
+                          value['date'] = pd.to_datetime(value['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
+                        
+                          fig1,ax = plt.subplots(figsize=(10,6))
+                          ax.plot(value['date'],value['KGV'], marker='o',label=col)
+                        
+                          dates = value['date'].tolist()
+                          labes = [str(year) if year != 'TTM' else 'TTM' for year in value['year']]
+                          ax.set_xticks(dates)
+                          ax.set_xticklabels(labes) 
+                          ax.set_ylabel('KGV')
+                                      
+                          ax.axhline(y=avg_kgv_plot_3y, color='red',linestyle='--', label='3y_mean')
+                          ax.axhline(y=avg_kgv_plot_5y, color='blue',linestyle='--', label='5y_mean')
+                          ax.axhline(y=avg_kgv_plot_7y, color='green',linestyle='--', label='7y_mean')
+                        
+                          ax.grid(True)
+                          ax.legend()  
+                          st.pyplot(fig1)
+                    if kpi == 'KBV':
+                        avg_kbv_plot_7y = kbv.iloc[-8:].mean()
+                        avg_kbv_plot_5y = kbv.iloc[-6:].mean()
+                        avg_kbv_plot_3y = kbv.iloc[-4:].mean()
     
-                    #     pe_line = go.Scatter(x=jahre_str, y=kbv, mode='lines', name='P/B-Ratio',
-                    #                          line=dict(width=3))
+                        pe_line = go.Scatter(x=jahre_str, y=kbv, mode='lines', name='P/B-Ratio',
+                                             line=dict(width=3))
     
-                    #     avg_line = go.Scatter(x=jahre_str, y=[avg_kbv_plot_7y] * len(jahre_str), mode='lines',
-                    #                           name='avg 7 years', line=dict(width=3))
+                        avg_line = go.Scatter(x=jahre_str, y=[avg_kbv_plot_7y] * len(jahre_str), mode='lines',
+                                              name='avg 7 years', line=dict(width=3))
     
-                    #     avg_line_3 = go.Scatter(x=jahre_str, y=[avg_kbv_plot_5y] * len(jahre_str), mode='lines',
-                    #                             name='avg 5 years', line=dict(width=3))
-                    #     avg_line_2 = go.Scatter(x=jahre_str, y=[avg_kbv_plot_3y] * len(jahre_str), mode='lines',
-                    #                             name='avg 3 years', line=dict(width=3))
-                    #     layout = go.Layout(title='Historisches P/B-RATIO',
-                    #                        xaxis=dict(title='', tickfont=dict(size=16)),
-                    #                        yaxis=dict(title='P/B-Ratio', title_font=dict(size=16)),
-                    #                        legend=dict(x=0.2, y=1.1, orientation='h', font=dict(size=16)), )
+                        avg_line_3 = go.Scatter(x=jahre_str, y=[avg_kbv_plot_5y] * len(jahre_str), mode='lines',
+                                                name='avg 5 years', line=dict(width=3))
+                        avg_line_2 = go.Scatter(x=jahre_str, y=[avg_kbv_plot_3y] * len(jahre_str), mode='lines',
+                                                name='avg 3 years', line=dict(width=3))
+                        layout = go.Layout(title='Historisches P/B-RATIO',
+                                           xaxis=dict(title='', tickfont=dict(size=16)),
+                                           yaxis=dict(title='P/B-Ratio', title_font=dict(size=16)),
+                                           legend=dict(x=0.2, y=1.1, orientation='h', font=dict(size=16)), )
     
-                    #     fig2 = go.Figure(data=[pe_line, avg_line, avg_line_3, avg_line_2], layout=layout)
-                    #     st.plotly_chart(fig2, use_container_width=True)
-                    # if kpi == 'KUV':
-                    #     avg_kuv_plot_7y = kuv.iloc[-8:].mean()
-                    #     avg_kuv_plot_5y = kuv.iloc[-6:].mean()
-                    #     avg_kuv_plot_3y = kuv.iloc[-4:].mean()
+                        fig2 = go.Figure(data=[pe_line, avg_line, avg_line_3, avg_line_2], layout=layout)
+                        st.plotly_chart(fig2, use_container_width=True)
+                    if kpi == 'KUV':
+                        avg_kuv_plot_7y = kuv.iloc[-8:].mean()
+                        avg_kuv_plot_5y = kuv.iloc[-6:].mean()
+                        avg_kuv_plot_3y = kuv.iloc[-4:].mean()
     
-                    #     pe_line = go.Scatter(x=jahre_str, y=kuv, mode='lines', name='P/R-Ratio',
-                    #                          line=dict(width=3))
+                        pe_line = go.Scatter(x=jahre_str, y=kuv, mode='lines', name='P/R-Ratio',
+                                             line=dict(width=3))
     
-                    #     avg_line = go.Scatter(x=jahre_str, y=[avg_kuv_plot_7y] * len(jahre_str), mode='lines',
-                    #                           name='avg 7 years', line=dict(width=3))
+                        avg_line = go.Scatter(x=jahre_str, y=[avg_kuv_plot_7y] * len(jahre_str), mode='lines',
+                                              name='avg 7 years', line=dict(width=3))
     
-                    #     avg_line_3 = go.Scatter(x=jahre_str, y=[avg_kuv_plot_5y] * len(jahre_str), mode='lines',
-                    #                             name='avg 5 years', line=dict(width=3))
-                    #     avg_line_2 = go.Scatter(x=jahre_str, y=[avg_kuv_plot_3y] * len(jahre_str), mode='lines',
-                    #                             name='avg 3 years', line=dict(width=3))
-                    #     layout = go.Layout(title='Historisches P/R-RATIO',
-                    #                        xaxis=dict(title='', tickfont=dict(size=16)),
-                    #                        yaxis=dict(title='P/R-Ratio', title_font=dict(size=16)),
-                    #                        legend=dict(x=0.2, y=1.1, orientation='h', font=dict(size=16)), )
+                        avg_line_3 = go.Scatter(x=jahre_str, y=[avg_kuv_plot_5y] * len(jahre_str), mode='lines',
+                                                name='avg 5 years', line=dict(width=3))
+                        avg_line_2 = go.Scatter(x=jahre_str, y=[avg_kuv_plot_3y] * len(jahre_str), mode='lines',
+                                                name='avg 3 years', line=dict(width=3))
+                        layout = go.Layout(title='Historisches P/R-RATIO',
+                                           xaxis=dict(title='', tickfont=dict(size=16)),
+                                           yaxis=dict(title='P/R-Ratio', title_font=dict(size=16)),
+                                           legend=dict(x=0.2, y=1.1, orientation='h', font=dict(size=16)), )
     
-                    #     fig3 = go.Figure(data=[pe_line, avg_line, avg_line_3, avg_line_2], layout=layout)
-                    #     st.plotly_chart(fig3, use_container_width=True)
+                        fig3 = go.Figure(data=[pe_line, avg_line, avg_line_3, avg_line_2], layout=layout)
+                        st.plotly_chart(fig3, use_container_width=True)
         
                 with right_col:
                     st.subheader("Bewertung")
