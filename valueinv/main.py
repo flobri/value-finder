@@ -162,6 +162,7 @@ with st.container():
                     fig0.tight_layout()
                     fig0.legend(bars, labels, loc='upper center', bbox_to_anchor=(0.5, 0.95), ncol=4)
                     plt.title('FreeCashflow vs. Price')
+                    plt.grid(True)
                     
                     st.pyplot(fig0)
     
