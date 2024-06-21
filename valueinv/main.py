@@ -152,7 +152,9 @@ with st.container():
                     labes = [str(year) if year != 'TTM' else 'TTM' for year in plot['year']]
                     ax1.set_xticks(dates)
                     ax1.set_xticklabels(labes)                 
-                    
+
+                    # Beschriftung LineChart
+                    ax2.text(data_an.Date.iloc[-1], data_an['Adj Close'].iloc[-1],f"{round(float(data_an['Adj Close'].iloc[-1]),2)}", ha='left', va='bottom', fontsize=12, color='blue')
                     
                     #Legende
                     bars = [barFC, barEPS,barR, line]
