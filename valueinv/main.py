@@ -122,9 +122,7 @@ with st.container():
                     plot.drop(columns= [col for col in plot.columns if col not in ['year','pershareFreeCashflow','pershareRevenue','reportedEPS']], inplace = True)
                     next_year = datetime.now().date().year +1
                     plot['date'] = pd.to_datetime(plot['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
-                    
-                    
-                    
+                                                            
                     fig0,ax1 = plt.subplots(figsize=(12,8))
                     width = 40
                     # Bar Plots
@@ -145,8 +143,7 @@ with st.container():
                     ax2= ax1.twinx()
                     line, = ax2.plot(data_an['Date'],data_an['Adj Close'], color='blue',linestyle='-', linewidth=2,label='Price')
                     ax2.set_ylabel('Price')
-                    
-                    
+                                        
                     # x Achse beschriften
                     dates = plot['date'].tolist()
                     labes = [str(year) if year != 'TTM' else 'TTM' for year in plot['year']]
@@ -168,39 +165,37 @@ with st.container():
     
     
                     kpis = ['KGV', 'KBV', 'KUV']
-                    kpi = st.radio("", options=kpis, horizontal=True, index=kpis.index('KGV'))
-                    
                     value = gdata.copy().reset_index(inplace=True)
                     value = gdata[['year','KGV','KUV','KBV']]
                     kgv = value['KGV']
                     kbv = value['KBV']
                     kuv = value['KUV']
-                    if kpi == 'KGV':
-                        avg_kgv_plot_7y = kgv.iloc[-8:].mean()
-                        avg_kgv_plot_5y = kgv.iloc[-6:].mean()
-                        avg_kgv_plot_3y = kgv.iloc[-4:].mean()
-                        
-                        next_year = datetime.now().date().year +1
-                        value['date'] = pd.to_datetime(value['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
-                        
-                        fig1,ax = plt.subplots(figsize=(10,6))
-                        ax.plot(value['date'],value['KGV'], marker='o',label=col)
-                        
-                        dates = value['date'].tolist()
-                        labes = [str(year) if year != 'TTM' else 'TTM' for year in value['year']]
-                        ax.set_xticks(dates)
-                        ax.set_xticklabels(labes) 
-                        ax.set_ylabel('KGV')
+                    kpi = st.radio("", options=kpis, horizontal=True, index=kpis.index('KGV'))
+                     if kpi == 'KGV':
+                      avg_kgv_plot_7y = kgv.iloc[-8:].mean()
 
-
-                        ax.axhline(y=avg_kgv_plot_3y, color='red',linestyle='--', label='3y_mean')
-                        ax.axhline(y=avg_kgv_plot_5y, color='blue',linestyle='--', label='5y_mean')
-                        ax.axhline(y=avg_kgv_plot_7y, color='green',linestyle='--', label='7y_mean')
-
-                        ax.grid(True)
-                        ax.legend()  
-                        
-                        st.pyplot(fig1)
+                      avg_kgv_plot_5y = kgv.iloc[-6:].mean()
+                      avg_kgv_plot_3y = kgv.iloc[-4:].mean()
+                    
+                      next_year = datetime.now().date().year +1
+                      value['date'] = pd.to_datetime(value['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
+                    
+                      fig1,ax = plt.subplots(figsize=(10,6))
+                      ax.plot(value['date'],value['KGV'], marker='o',label=col)
+                    
+                      dates = value['date'].tolist()
+                      labes = [str(year) if year != 'TTM' else 'TTM' for year in value['year']]
+                      ax.set_xticks(dates)
+                      ax.set_xticklabels(labes) 
+                      ax.set_ylabel('KGV')
+                                       
+                      ax.axhline(y=avg_kgv_plot_3y, color='red',linestyle='--', label='3y_mean')
+                      ax.axhline(y=avg_kgv_plot_5y, color='blue',linestyle='--', label='5y_mean')
+                      ax.axhline(y=avg_kgv_plot_7y, color='green',linestyle='--', label='7y_mean')
+                    
+                      ax.grid(True)
+                      ax.legend()  
+                      st.pyplot(fig1)
                     # if kpi == 'KBV':
                     #     avg_kbv_plot_7y = kbv.iloc[-8:].mean()
                     #     avg_kbv_plot_5y = kbv.iloc[-6:].mean()
