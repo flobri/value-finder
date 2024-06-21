@@ -171,7 +171,7 @@ with st.container():
                     kbv = value['KBV']
                     kuv = value['KUV']
                     kpi = st.radio("", options=kpis, horizontal=True, index=kpis.index('KGV'))
-                     if kpi == 'KGV':
+                    if kpi == 'KGV':
                       avg_kgv_plot_7y = kgv.iloc[-8:].mean()
 
                       avg_kgv_plot_5y = kgv.iloc[-6:].mean()
