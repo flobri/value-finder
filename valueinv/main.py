@@ -4,6 +4,8 @@ import pandas as pd
 import plotly.graph_objs as go
 import streamlit as st
 import matplotlib.pyplot as plt
+import numpy as np
+from datetime import datetime
 
 from process_data import convert_to_numeric, process_data, calculate_metrics, caculate_avg_price_by_year, \
     create_fundamentals, create_ttm_dataframe, management, wachstum, overview_df, qualitaet, bewertung
@@ -115,31 +117,51 @@ with st.container():
                         </style>
                     """, unsafe_allow_html=True)
         
-                    plot_data = gdata.copy()
-                    plot_data.index = plot_data.index.astype(str)
+                    plot = gdata.copy()
+                    plot.reset_index(inplace=True)
+                    plot.drop(columns= [col for col in plot.columns if col not in ['year','pershareFreeCashflow','pershareRevenue','reportedEPS']], inplace = True)
+                    next_year = datetime.now().date().year +1
+                    plot['date'] = pd.to_datetime(plot['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
                     
-                    price = go.Scatter(x=data_an['Date'], y=data_an['Adj Close'], mode='lines', name='Price',
-                                        yaxis='y2')
-                    cashflow_bar = go.Bar(x=plot_data.index, y=plot_data['pershareFreeCashflow'],
-                                          name='FreeCashflow je Share', yaxis='y1')
-                    netIncome_bar = go.Bar(x=plot_data.index, y=plot_data['reportedEPS'],
-                                            name='NetIncome je Share',
-                                            yaxis='y1')
-                    revenue_bar = go.Bar(x=plot_data.index, y=plot_data['pershareRevenue'],
-                                          name='Revenue je Share',
-                                          yaxis='y1')
                     
-                    layout = go.Layout(
-                        title='FreeCashflow vs. Price',
-                        xaxis=dict(title='', tickfont=dict(size=16)),
-                        yaxis=dict(title='FCF & EPS', title_font=dict(size=16)),
-                        yaxis2=dict(title='Price', side='right', overlaying='y', title_font=dict(size=16)),
-                        legend=dict(x=0.00, y=1.18, orientation='h', font=dict(size=16))
-                    )
                     
-                    fig0 = go.Figure(data=[price, netIncome_bar, cashflow_bar, revenue_bar], layout=layout)
+                    fig0,ax1 = plt.subplots(figsize=(12,8))
+                    width = 40
+                    # Bar Plots
+                    adjust_pos = pd.Timedelta(days=width*1.5)
+                    barFC = ax1.bar(plot['date']- adjust_pos, plot['pershareFreeCashflow'],width*2, label='FreeCashflow je Share')
+                    barEPS = ax1.bar(plot['date'] , plot['reportedEPS'],width*2, label='EPS')
+                    barR = ax1.bar(plot['date']+ adjust_pos, plot['pershareRevenue'],width*2, label='Revenue je Share')
                     
-                    st.plotly_chart(fig0, use_container_width=True)
+                    # Beschriftung Bar Plots
+                    ax1.bar_label(barFC,label_type='edge',rotation=90,padding=3)
+                    ax1.bar_label(barR,label_type='edge',rotation=90,padding=3)
+                    ax1.bar_label(barEPS,label_type='edge',rotation=90,padding=3)
+                    
+                    #Achsenbeschriftung & Legende
+                    ax1.set_ylabel('FCF, EPS und Revenue je Share')
+
+                    # Price Chart
+                    ax2= ax1.twinx()
+                    line, = ax2.plot(data_an['Date'],data_an['Adj Close'], color='blue',linestyle='-', linewidth=2,label='Price')
+                    ax2.set_ylabel('Price')
+                    plt.grid(True)
+                    
+                    # x Achse beschriften
+                    dates = plot['date'].tolist()
+                    labes = [str(year) if year != 'TTM' else 'TTM' for year in plot['year']]
+                    ax1.set_xticks(dates)
+                    ax1.set_xticklabels(labes)                 
+                    
+                    
+                    #Legende
+                    bars = [barFC, barEPS,barR, line]
+                    labels = [bar.get_label() for bar in bars]
+                    fig0.tight_layout()
+                    fig0.legend(bars, labels, loc='upper center', bbox_to_anchor=(0.5, 0.95), ncol=4)
+                    plt.title('FreeCashflow vs. Price')
+                    
+                    st.pyplot(fig0)
     
     
                     kpis = ['KGV', 'KBV', 'KUV']
