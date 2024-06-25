@@ -194,6 +194,10 @@ with st.container():
                           ax.axhline(y=avg_kgv_plot_3y, color='red',linestyle='--', label='3y_mean')
                           ax.axhline(y=avg_kgv_plot_5y, color='blue',linestyle='--', label='5y_mean')
                           ax.axhline(y=avg_kgv_plot_7y, color='green',linestyle='--', label='7y_mean')
+                          for i, measure in enumerate(value['KGV']):
+                              ax.text(value['date'][i], value['KGV'][i], f"{round(float(measure),2)}", ha='center', va='bottom', fontsize=9,color='blue')
+                    
+                        
                         
                           ax.grid(True)
                           ax.legend()  
@@ -218,6 +222,9 @@ with st.container():
                           ax.axhline(y=avg_kbv_plot_3y, color='red',linestyle='--', label='3y_mean')
                           ax.axhline(y=avg_kbv_plot_5y, color='blue',linestyle='--', label='5y_mean')
                           ax.axhline(y=avg_kbv_plot_7y, color='green',linestyle='--', label='7y_mean')
+                          for i, measure in enumerate(value['KBV']):
+                              ax.text(value['date'][i], value['KBV'][i], f"{round(float(measure),2)}", ha='center', va='bottom', fontsize=9,color='blue')
+                    
                         
                           ax.grid(True)
                           ax.legend()  
@@ -242,6 +249,9 @@ with st.container():
                           ax.axhline(y=avg_kuv_plot_3y, color='red',linestyle='--', label='3y_mean')
                           ax.axhline(y=avg_kuv_plot_5y, color='blue',linestyle='--', label='5y_mean')
                           ax.axhline(y=avg_kuv_plot_7y, color='green',linestyle='--', label='7y_mean')
+                          for i, measure in enumerate(value['KUV']):
+                              ax.text(value['date'][i], value['KUV'][i], f"{round(float(measure),2)}", ha='center', va='bottom', fontsize=9,color='blue')
+                    
                         
                           ax.grid(True)
                           ax.legend()  
