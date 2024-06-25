@@ -163,8 +163,9 @@ with st.container():
                     
                     st.pyplot(fig0)
                     
-                    value = gdata.copy().reset_index(inplace=True)
-                    value = gdata[['year','KGV','KUV','KBV']]
+                    value = gdata.copy()
+                    value.reset_index(inplace=True)
+                    value = value[['year','KGV','KUV','KBV']]
                     kgv = value['KGV']
                     kbv = value['KBV']
                     kuv = value['KUV']
@@ -178,7 +179,7 @@ with st.container():
                           avg_kgv_plot_3y = kgv.iloc[-4:].mean()
                         
                           next_year = datetime.now().date().year +1
-                          value['date'] = pd.to_datetime(value['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
+                          value.loc[:,'date'] = pd.to_datetime(value['year'].apply(lambda x: f"{x}-12-28" if x != 'TTM' else pd.Timestamp(f"{next_year}-01-01")))
                         
                           fig1,ax = plt.subplots(figsize=(10,6))
                           ax.plot(value['date'],value['KGV'], marker='o',label=col)
